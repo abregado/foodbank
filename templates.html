@@ -1,0 +1,107 @@
+<!--//WIDGETS
+
+//Delivery timer and buttons
+//several delivery times and types
+
+//inventory display
+//item graphics
+//item details with buy/sell price
+//buy now button
+
+//offer display
+
+//quest list
+//quest details and completion button (red/green)
+
+//new user signup
+//user signin
+//new foodbank creation if player has no foodbank
+//scoreboard public with rolling scores and all time highest
+//scoreboard shows global stats (players, meals provided in last X,y,z)
+
+//intro and explaination page
+
+//ITEMS
+//tea,coffee,milk,fruit,vegetables,bread,beans,yoghurt
+//cakes,choclate,muesli,juice,toiler paper, soap
+//toothpaste,brush,shaving supplies,blankets,rice,pasta
+
+//admin add foodType
+//admin add QuestType-->
+
+<template name="gamestate">
+	<p>My ID: {{myId}}</p>
+	<ul>
+	{{#each bankList}}
+		<li>{{name}}</li>
+	{{/each}}
+	</ul>
+	{{#if userBank}}
+		{{> delivery}}
+		{{> inventory}}
+		{{> offers}}
+		{{> quests}}
+	{{else}}
+		{{> nobank}}
+	{{/if}}
+</template>
+
+<template name="nobank">
+	<h1>{{username}}, you have no Foodbank!</h1>
+	<p>To start playing you need to make a Foodbank. Due to reasons you need to push this button to do that</p>
+	<button name="makefoodbank" id="makefoodbank">Start a new Foodbank</button>
+</template>
+	
+<template name="delivery">
+	<h1>My foodbank: {{userBank.name}}</h1>
+	<br>
+	<p>You may get another delivery {{timeUntil}}.</p>
+	<p>Scheduled for {{next}}</p>
+	<p>It is now {{now}}</p>
+	<p>Is it ready? {{ready}}</p>
+	<button type ="button" id="shortdel" name="shortdel" class="btn {{readyclass}}">Gimmie a Small Delivery</button>
+	<p>This is the Delivery Timer. It shows some buttons for getting deliveries</p>
+	
+</template>
+
+<template name="inventory">
+  <p>This is the Inventory</p>
+  <ul>
+  {{#each typeList}}
+    <li>{{> itemInfo}}</li>
+  {{/each}}
+  {{#each itemList}}
+    <li>{{> itemInfo}}</li>
+  {{/each}}
+  </ul>
+	
+  
+</template>
+
+<template name="itemInfo">
+  {{_id}} {{name}} {{weight}}
+</template>
+
+<template name="loginSignup">
+  <p>A Form to signup as a new User, or login as an old User</p>
+  {{> loginButtons}}
+</template>
+
+<template name="offers">
+  <p>This pops up when you click to buy items</p>
+</template>
+
+<template name="scoreboard">
+  <p>This shows all of the scoreboard data</p>
+</template>
+
+<template name="explain">
+  <p>This explains what Foodbank is</p>
+</template>
+
+<template name="quests">
+  <p>Here you can always see three quests that you have been offered and the buttons to complete them</p>
+  {{#each questList}}
+    <button>Complete Quest</button>
+  {{/each}}
+</template>
